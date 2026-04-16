@@ -1,4 +1,4 @@
-package com.mypractice.dataStructure;
+package com.mypractice.datastructure;
 
 public class CircularBuffer {
     /** Size of the buffer */

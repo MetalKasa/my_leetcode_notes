@@ -1,6 +1,6 @@
-package com.mypractice.helloworld;
+package com.mypractice.leetcode;
 
-import com.mypractice.dataStructure.CircularBuffer;
+import com.mypractice.datastructure.CircularBuffer;
 import com.mypractice.module.Player;
 
 import java.util.*;
@@ -11,8 +11,6 @@ public class Test {
         test.testComparator();
 //        test.testCircularBuffer();
 //        test.testPriorityQueue();
-
-
     }
 
     private void testComparator() {

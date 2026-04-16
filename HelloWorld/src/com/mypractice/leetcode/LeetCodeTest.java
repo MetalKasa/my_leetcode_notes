@@ -1,4 +1,4 @@
-package com.mypractice.helloworld;
+package com.mypractice.leetcode;
 
 import java.util.List;
 
