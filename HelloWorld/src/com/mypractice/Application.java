@@ -1,5 +1,6 @@
 package com.mypractice;
 
+import com.mypractice.leetcode.BacktrackingSolution;
 import com.mypractice.leetcode.TreeSolution;
 import com.mypractice.leetcode.WindowSolution;
 import com.mypractice.module.TreeNode;
@@ -24,8 +25,11 @@ public class Application {
 //        int result = solution.maxPathSum(root2);
 //        System.out.println(result);
 
-        WindowSolution windowSolution = new WindowSolution();
-        int[] test = new int[] {1,1,1,1,7};
-        System.out.println(windowSolution.minSubArrayLen(7, test));
+//        WindowSolution windowSolution = new WindowSolution();
+//        int[] test = new int[] {1,1,1,1,7};
+//        System.out.println(windowSolution.minSubArrayLen(7, test));
+
+        BacktrackingSolution backtrackingSolution = new BacktrackingSolution();
+        System.out.println(backtrackingSolution.letterCombinations("23"));
     }
 }
