@@ -1,9 +1,6 @@
 package com.mypractice.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class BacktrackingSolution {
     public BacktrackingSolution() {
@@ -40,4 +37,72 @@ public class BacktrackingSolution {
         return allResults;
     }
 
+    /**
+     * leetcode 39
+     */
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        candidates = Arrays.stream(candidates).sorted().toArray();
+        Set<List<Integer>> result = combinationSumBacktracking(candidates, target, 0, new ArrayList<>(), new HashSet<>());
+        return result.stream().toList();
+    }
+
+    private Set<List<Integer>> combinationSumBacktracking(int[] candidates, int target, int currentSum, List<Integer> currentItems, Set<List<Integer>> results) {
+        if (currentSum == target) {
+            results.add(currentItems);
+            return results;
+        } else {
+            for (int candidate : candidates) {
+                if (currentSum + candidate > target) {
+                    return results;
+                }
+                int tempCurrentSum = currentSum + candidate;
+                List<Integer> tempCurrentItems = new ArrayList<>();
+                tempCurrentItems.addAll(currentItems);
+                tempCurrentItems.add(candidate);
+                tempCurrentItems.sort(Integer::compareTo);
+                results = combinationSumBacktracking(candidates, target, tempCurrentSum, tempCurrentItems, results);
+
+            }
+            return results;
+        }
+    }
+
+    /**
+     * leetcode 40
+     * 和39的区别是candidates里的每个数只能用一次
+     */
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<Integer> candidateList = Arrays.stream(candidates).boxed().toList();
+        Set<List<Integer>> resultSet =  combinationSum2Backtracking(candidateList, target, new ArrayList<>(), new HashSet<>());
+        return resultSet.stream().toList();
+    }
+
+    private Set<List<Integer>> combinationSum2Backtracking(List<Integer> candidatesLeft, int targetLeft, List<Integer> currentItems, Set<List<Integer>> results) {
+        if (targetLeft == 0) {
+            List<Integer> oneResult = new ArrayList<>();
+            oneResult.addAll(currentItems);
+            results.add(oneResult.stream().sorted().toList());
+            return results;
+        }
+
+        for (int i = 0; i < candidatesLeft.size(); i++) {
+            int candidates = candidatesLeft.get(i);
+            // 如果当前要试的数和上一个一样，那么不用试了
+            if (i > 0 && candidates == candidatesLeft.get(i-1)) {
+                continue;
+            }
+            if (candidates <= targetLeft) {
+                targetLeft -= candidates;
+                currentItems.add(candidates);
+                // 小于i的都在前面的loop里试过了，剪枝
+                List<Integer> newCandidatesLeft = new ArrayList<>(candidatesLeft.subList(i+1, candidatesLeft.size()));
+                results = combinationSum2Backtracking(newCandidatesLeft, targetLeft,
+                        currentItems, results);
+                targetLeft += candidates;
+                currentItems.remove(currentItems.size()-1);
+                newCandidatesLeft.clear();
+            }
+        }
+        return results;
+    }
 }
