@@ -134,6 +134,69 @@ public class OtherSolution {
         }
         return finalNum;
     }
+
+    /**
+     * leetcode 4
+     */
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        List<Integer> numsList = Arrays.stream(nums1).boxed().toList();
+        List<Integer> nums2List = Arrays.stream(nums2).boxed().toList();
+        List<Integer> modifidiedList = new ArrayList<>();
+        modifidiedList.addAll(numsList);
+        modifidiedList.addAll(nums2List);
+        List<Integer> sortedList = modifidiedList.stream().sorted().toList();
+
+        if (sortedList.size() % 2 == 1) {
+            return sortedList.get((sortedList.size() - 1)/2);
+        } else {
+            int index = sortedList.size() / 2;
+            return (double) (sortedList.get(index - 1) + sortedList.get(index)) /2;
+        }
+    }
+
+    /**
+     * leetcode 33
+     */
+    public int search(int[] nums, int target) {
+        int firstNum = nums[0];
+        int lastNum = nums[nums.length-1];
+        if (target < firstNum && target > lastNum) {
+            return -1;
+        }
+
+        List<Integer> numsList = Arrays.stream(nums).boxed().toList();
+        return splitSearchHelper(numsList, 0, numsList.size(), target);
+    }
+
+    private int splitSearchHelper(List<Integer> nums, int currentLeft, int currentRight, int target) {
+        List<Integer> currentSearchList = nums.subList(currentLeft, currentRight);
+
+        if (currentSearchList.size() == 1) {
+            if (currentSearchList.get(0) == target) {
+                return currentLeft;
+            } else {
+                return -1;
+            }
+        }
+
+        int splitIndex = (currentSearchList.size() + 1) / 2;
+        List<Integer> leftSubList = nums.subList(currentLeft, currentLeft + splitIndex);
+        List<Integer> rightSubList = nums.subList(currentLeft + splitIndex, currentRight);
+
+        if (leftSubList.get(0) <= leftSubList.get(leftSubList.size()-1)) {
+            if (leftSubList.get(0) <= target && leftSubList.get(leftSubList.size()-1) >= target) {
+                return splitSearchHelper(nums, currentLeft, currentLeft + splitIndex, target);
+            } else {
+                return splitSearchHelper(nums, currentLeft + splitIndex, currentRight, target);
+            }
+        } else {
+            if (rightSubList.get(0) <= target && rightSubList.get(rightSubList.size()-1) >= target) {
+                return splitSearchHelper(nums, currentLeft + splitIndex, currentRight, target);
+            } else {
+                return splitSearchHelper(nums, currentLeft, currentLeft + splitIndex, target);
+            }
+        }
+    }
     
 
 }
