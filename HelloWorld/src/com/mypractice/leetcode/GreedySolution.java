@@ -1,7 +1,10 @@
 package com.mypractice.leetcode;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class GreedySolution {
@@ -228,5 +231,31 @@ public class GreedySolution {
             if (flag) return startIndex;
         }
         return -1;
+    }
+
+    /**
+     * 179
+     * @param nums
+     * @return
+     */
+    public String largestNumber(int[] nums) {
+        List<String> numStringList = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            String numString = String.valueOf(nums[i]);
+            numStringList.add(numString);
+        }
+        List<String> sortedNumString = numStringList.stream().sorted(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                // 34 vs 3这种场景，就看343和334谁大了
+                // 想出这个办法的人怎么聪明成这样的。。。。
+                return (o1+o2).compareTo(o2+o1);
+            }
+        }.reversed()).toList();
+        String result = String.join("", sortedNumString);
+        if (result.startsWith("0")) {
+            return "0";
+        }
+        return result;
     }
 }

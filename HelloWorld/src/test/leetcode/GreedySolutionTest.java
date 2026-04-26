@@ -29,4 +29,10 @@ public class GreedySolutionTest {
         int[] cost1 = new int[] {3,4,5,1,2};
         System.out.println(greedySolution.canCompleteCircuit(gas1, cost1));
     }
+
+    @Test
+    public void largestNumber(){
+        int[] input1 = new int[]{3,30,34,5,9};
+        System.out.println(greedySolution.largestNumber(input1));
+    }
 }

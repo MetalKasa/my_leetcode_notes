@@ -105,4 +105,35 @@ public class BacktrackingSolution {
         }
         return results;
     }
+
+    /**
+     * leetcode 77
+     * @param n
+     * @param k
+     * @return
+     */
+    public List<List<Integer>> combine(int n, int k) {
+        List<Integer> nList = new ArrayList<>();
+        for (int i = 1; i <= n; i++) {
+            nList.add(i);
+        }
+
+        List<List<Integer>> result = combineBacktracking(nList, k, new ArrayList<>(), new ArrayList<>());
+        return result;
+    }
+
+    private List<List<Integer>> combineBacktracking(List<Integer> currentNList, int currentK, List<Integer> currentCombination, List<List<Integer>> currentResult) {
+        if (currentK == 0) {
+            currentResult.add(currentCombination);
+            return currentResult;
+        }
+
+        for (int i = 0; i < currentNList.size(); i++) {
+            List<Integer> tempCurrentCombination = new ArrayList<>(currentCombination);
+            tempCurrentCombination.add(currentNList.get(i));
+            List<Integer> tempCurrentNList = currentNList.subList(i + 1, currentNList.size());
+            currentResult = combineBacktracking(tempCurrentNList, currentK - 1, tempCurrentCombination, currentResult);
+        }
+        return currentResult;
+    }
 }

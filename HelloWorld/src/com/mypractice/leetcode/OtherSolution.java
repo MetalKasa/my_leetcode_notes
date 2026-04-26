@@ -197,6 +197,47 @@ public class OtherSolution {
             }
         }
     }
+
+    /**
+     * z convert
+     * leetcode 6
+     * @param s
+     * @param numRows
+     * @return
+     */
+    public String zLetterConvert(String s, int numRows) {
+        if (s.length()==1 || numRows == 1) {
+            return s;
+        }
+        int cycleLength = numRows * 2 - 2;
+        int n = s.length();
+        HashMap<Integer, List<String>> lineStrings = new HashMap<>();
+        int currentRowNum = 1;
+        boolean isGoingDown = true;
+        for (int i=0; i < n; i++) {
+            lineStrings.computeIfAbsent(currentRowNum, v -> new ArrayList<>()).add(s.substring(i, i+1));
+            if (currentRowNum == numRows && isGoingDown) {
+                currentRowNum -=1;
+                isGoingDown = false;
+            } else if (currentRowNum == 1 && !isGoingDown) {
+                currentRowNum += 1;
+                isGoingDown = true;
+            } else {
+                if (isGoingDown) {
+                    currentRowNum +=1;
+                } else {
+                    currentRowNum -= 1;
+                }
+            }
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 1; i <= numRows; i++) {
+            if (lineStrings.get(i) != null) {
+                stringBuilder.append(String.join("", lineStrings.get(i)));
+            }
+        }
+        return stringBuilder.toString();
+    }
     
 
 }
