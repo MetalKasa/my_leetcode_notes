@@ -136,4 +136,31 @@ public class BacktrackingSolution {
         }
         return currentResult;
     }
+
+    /**
+     * 78
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+        List<Integer> numsList = Arrays.stream(nums).boxed().toList();
+        if (numsList.size() == 0) {
+            return List.of(new ArrayList<>());
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        return subsetBacktracking(numsList, result, new ArrayList<>());
+    }
+
+    private List<List<Integer>>  subsetBacktracking(List<Integer> currentNumsList, List<List<Integer>> currentResult, List<Integer> currentSubset) {
+        for (int i = 0; i < currentNumsList.size(); i++) {
+            List<Integer> tempCurrentSubset = new ArrayList<>(currentSubset);
+            tempCurrentSubset.add(currentNumsList.get(i));
+            currentResult.add(tempCurrentSubset);
+            List<Integer> tempCurrentNumsList = currentNumsList.subList(i + 1, currentNumsList.size());
+            currentResult = subsetBacktracking(tempCurrentNumsList, currentResult, tempCurrentSubset);
+        }
+        return currentResult;
+    }
 }
