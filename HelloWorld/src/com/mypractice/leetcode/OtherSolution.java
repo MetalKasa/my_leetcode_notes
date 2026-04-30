@@ -238,6 +238,40 @@ public class OtherSolution {
         }
         return stringBuilder.toString();
     }
-    
+
+    /**
+     * leetcode 80
+     * @param nums
+     * @return
+     */
+    public int removeDuplicates(int[] nums) {
+        int n = nums.length;
+        int i = 1;
+        int count = 1;
+        int lastNum = nums[0];
+        while (i < n) {
+            if (nums[i] == lastNum) {
+                if(count < 2) {
+                    count++;
+                    i++;
+                    continue;
+                } else {
+                    // 要删一个
+                    n--;
+                    int j = i;
+                    while (j < n) {
+                        nums[j] = nums[j+1];
+                        j++;
+                    }
+                    continue;
+                }
+            } else {
+                count = 1;
+                lastNum = nums[i];
+                i++;
+            }
+        }
+        return n;
+    }
 
 }

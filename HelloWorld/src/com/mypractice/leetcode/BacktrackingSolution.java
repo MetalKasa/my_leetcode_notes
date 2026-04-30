@@ -163,4 +163,74 @@ public class BacktrackingSolution {
         }
         return currentResult;
     }
+
+    /**
+     * 79
+     * @param board
+     * @param word
+     * @return
+     */
+    public boolean exist(char[][] board, String word) {
+        int n = board.length;
+        int m = board[0].length;
+        char startChar = word.charAt(0);
+        boolean isExist = false;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == startChar) {
+                    board[i][j] = '0';
+                    isExist = isExist || existBacktracking(board, word.substring(1), i, j, n, m, isExist);
+                    board[i][j] = startChar;
+                }
+            }
+        }
+        return isExist;
+    }
+
+    private boolean existBacktracking(char[][] board, String currentWord, int currentI, int currentJ, int n, int m, boolean isExist) {
+        if (currentWord.length() == 0) {
+            return true;
+        }
+        char nextChar = currentWord.charAt(0);
+        // 上
+        if (currentI > 0 && board[currentI - 1][currentJ] == nextChar) {
+            board[currentI - 1][currentJ] = '0';
+            isExist = isExist || existBacktracking(board, currentWord.substring(1), currentI - 1, currentJ, n, m, isExist);
+            board[currentI - 1][currentJ] = nextChar;
+        }
+        if (isExist) {
+            return isExist;
+        }
+
+        // 右
+        if (currentJ < m - 1 && board[currentI][currentJ + 1] == nextChar) {
+            board[currentI][currentJ+1] = '0';
+            isExist = isExist || existBacktracking(board, currentWord.substring(1), currentI, currentJ + 1, n, m, isExist);
+            board[currentI][currentJ+1] = nextChar;
+        }
+        if (isExist) {
+            return isExist;
+        }
+
+        // 下
+        if (currentI < n-1 && board[currentI + 1][currentJ] == nextChar) {
+            board[currentI + 1][currentJ] = '0';
+            isExist = isExist || existBacktracking(board, currentWord.substring(1), currentI + 1, currentJ, n, m, isExist);
+            board[currentI + 1][currentJ] = nextChar;
+        }
+        if (isExist) {
+            return isExist;
+        }
+
+        // 左
+        if (currentJ > 0 && board[currentI][currentJ - 1] == nextChar) {
+            board[currentI][currentJ-1] = '0';
+            isExist = isExist || existBacktracking(board, currentWord.substring(1), currentI, currentJ - 1, n, m, isExist);
+            board[currentI][currentJ-1] = nextChar;
+        }
+        if (isExist) {
+            return isExist;
+        }
+        return false;
+    }
 }
