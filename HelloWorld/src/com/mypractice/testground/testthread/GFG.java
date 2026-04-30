@@ -1,4 +1,4 @@
-package com.mypractice.testthread;
+package com.mypractice.testground.testthread;
 
 import java.util.concurrent.CompletableFuture;
 

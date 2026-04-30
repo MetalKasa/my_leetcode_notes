@@ -1,6 +1,6 @@
-package com.mypractice.leetcode;
+package com.mypractice.testground.testcompare;
 
-import com.mypractice.datastructure.CircularBuffer;
+import com.mypractice.module.CircularBuffer;
 import com.mypractice.module.Player;
 
 import java.util.*;

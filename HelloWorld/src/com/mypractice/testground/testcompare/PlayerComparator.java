@@ -1,4 +1,4 @@
-package com.mypractice.leetcode;
+package com.mypractice.testground.testcompare;
 
 import com.mypractice.module.Player;
 

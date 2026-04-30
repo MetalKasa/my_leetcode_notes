@@ -2,7 +2,7 @@ package com.mypractice.leetcode;
 
 import java.util.*;
 
-class Solution {
+class Solution2024 {
     public int lengthOfLongestSubstring(String s) {
         if (s.length() <= 1) {
             return s.length();
